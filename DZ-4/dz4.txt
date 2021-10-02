@@ -1,0 +1,24 @@
+1.
+UPDATE training_groups SET started_at = SUBSTR(started_at, 7, 4) || '-' ||
+SUBSTR(started_at, 4, 2) || '-' ||
+SUBSTR(started_at, 1, 2);
+
+2.
+SELECT id, number, MAX(started_at) FROM training_groups;
+
+3.
+SELECT DISTINCT(SUBSTR(started_at, 1, 4)) FROM training_groups; 
+
+4.
+SELECT COUNT(id) AS 'total_teachers' FROM teachers;
+
+5.
+SELECT MAX(id) AS 'id' FROM training_groups;   
+SELECT started_at FROM training_groups WHERE id IN (4-1, 4);
+
+6.
+SELECT AVG(performance) FROM academic_performance WHERE teacher_id = 1;
+
+
+7. (доп. задание с методички)
+SELECT teacher_id FROM academic_performance WHERE performamce < 4.8;
