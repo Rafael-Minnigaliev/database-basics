@@ -4,7 +4,7 @@ SUBSTR(started_at, 4, 2) || '-' ||
 SUBSTR(started_at, 1, 2);
 
 2.
-SELECT id, number, MAX(started_at) FROM training_groups;
+SELECT id, number FROM training_groups ORDER BY started_at DESC LIMIT 1;
 
 3.
 SELECT DISTINCT(SUBSTR(started_at, 1, 4)) FROM training_groups; 
@@ -13,12 +13,20 @@ SELECT DISTINCT(SUBSTR(started_at, 1, 4)) FROM training_groups;
 SELECT COUNT(id) AS 'total_teachers' FROM teachers;
 
 5.
-SELECT MAX(id) AS 'id' FROM training_groups;   
-SELECT started_at FROM training_groups WHERE id IN (4-1, 4);
+SELECT started_at FROM training_groups ORDER BY started_at DESC LIMIT 2;
 
 6.
 SELECT AVG(performance) FROM academic_performance WHERE teacher_id = 1;
 
 
 7. (доп. задание с методички)
-SELECT teacher_id FROM academic_performance WHERE performamce < 4.8;
+SELECT teacher_id, AVG(performance) AS 'average_academic_performance' FROM academic_performance GROUP BY teacher_id HAVING performance < 4.8;
+
+
+
+
+
+
+
+
+

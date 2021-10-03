@@ -1,0 +1,45 @@
+1. 
+SELECT 
+number, 
+(SELECT name FROM courses WHERE courses.id = course_id) AS 'name', 
+students_amount 
+FROM training_groups WHERE students_amount >= 40;
+
+2.  
+SELECT
+(SELECT number FROM training_groups WHERE training_groups.id = stream_id) AS 'number',
+(SELECT name FROM courses WHERE courses.id = (SELECT course_id FROM training_groups WHERE id =  stream_id)) AS 'name',
+(SELECT name || ' ' || surname FROM teachers WHERE teachers.id = (SELECT teacher_id FROM training_groups WHERE training_groups.id = stream_id))AS 'teacher',
+performance
+FROM academic_performance ORDER BY performance ASC LIMIT 2;
+
+3. 
+SELECT
+teacher_id,
+AVG(performance) AS 'average grade'
+FROM academic_performance WHERE teacher_id = (SELECT teachers.id FROM teachers WHERE name = 'Николай' AND surname = 'Савельев');
+
+4.
+SELECT
+stream_id,
+(SELECT surname FROM teachers WHERE teachers.id = teacher_id) AS 'surname',
+(SELECT name FROM teachers WHERE teachers.id = teacher_id) AS 'name'
+FROM academic_performance WHERE performance < 4.8
+UNION
+SELECT
+stream_id,
+(SELECT surname FROM teachers WHERE teachers.id = teacher_id) AS 'surname',
+(SELECT name FROM teachers WHERE teachers.id = teacher_id) AS 'name'
+FROM academic_performance WHERE teacher_id = (SELECT teachers.id FROM teachers WHERE name = 'Наталья' AND surname = 'Петрова');
+
+
+
+
+
+
+
+
+   
+
+
+ 
