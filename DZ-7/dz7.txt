@@ -15,8 +15,8 @@ GROUP BY courses.name;
 
 2.
 BEGIN TRANSACTION;
-   DELETE FROM teachers WHERE teachers.id = 3;
    DELETE FROM academic_performance WHERE academic_performance.teacher_id = 3;
+   DELETE FROM teachers WHERE teachers.id = 3;
 COMMIT;
 
 
