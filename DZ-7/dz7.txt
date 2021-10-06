@@ -1,0 +1,34 @@
+1. 
+CREATE VIEW course_view AS
+SELECT 
+   courses.name AS 'course_name', 
+   MAX(training_groups.number) AS 'last_stream_number',
+   training_groups.started_at,
+   AVG(academic_performance.performance) AS 'average grade'
+FROM training_groups 
+   INNER JOIN courses
+      ON training_groups.course_id = courses.id
+   INNER JOIN academic_performance
+      ON training_groups.id = academic_performance.stream_id
+GROUP BY courses.name;
+
+
+2.
+BEGIN TRANSACTION;
+   DELETE FROM teachers WHERE teachers.id = 3;
+   DELETE FROM academic_performance WHERE academic_performance.teacher_id = 3;
+COMMIT;
+
+
+3.
+CREATE TRIGGER check_performance BEFORE INSERT
+ON academic_performance
+   BEGIN
+      SELECT CASE
+      WHEN
+         (NEW.performance NOT BETWEEN 0.1 AND 5)
+      THEN 
+         RAISE(ABORT, 'The score does not match the range!')
+   END;
+END;
+
