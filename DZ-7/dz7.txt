@@ -3,7 +3,7 @@ CREATE VIEW course_view AS
 SELECT 
    courses.name AS 'course_name', 
    MAX(training_groups.number) AS 'last_stream_number',
-   training_groups.started_at,
+   MAX(training_groups.started_at) AS 'course_start_date',
    AVG(academic_performance.performance) AS 'average grade'
 FROM training_groups 
    INNER JOIN courses

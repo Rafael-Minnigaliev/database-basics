@@ -1,0 +1,31 @@
+1.
+SELECT DISTINCT
+   courses.name AS course_name,
+   SUM(training_groups.students_amount) OVER(w_course_name) AS students_amount
+FROM courses 
+   INNER JOIN training_groups
+      ON courses.id = training_groups.course_id
+WINDOW w_course_name AS (PARTITION BY courses.name)
+ORDER BY courses.name; 
+
+2.
+SELECT DISTINCT
+   teachers.id,
+   teachers.name,
+   teachers.surname,
+   AVG(academic_performance.performance) OVER(w_teacher_id) AS average_grade
+FROM teachers
+   LEFT JOIN academic_performance
+      ON teachers.id = academic_performance.teacher_id
+WINDOW w_teacher_id AS (PARTITION BY teachers.id)
+ORDER BY teachers.name;
+
+3.
+CREATE INDEX teachers_name_surname_idx 
+   ON teachers(name, surname);
+
+CREATE UNIQUE INDEX number_uq 
+   ON streams(number); 
+
+
+
